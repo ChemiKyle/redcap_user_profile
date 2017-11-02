@@ -1,10 +1,10 @@
 # REDCap User Profile
-REDCap User Profile is an external module that extends user accounts information according according to your needs - e.g. address, country of birth, job position, etc. This module provides:
+REDCap User Profile is an external module that extends user accounts information according to your needs - e.g. address, country of birth, job position, etc. This module provides:
 - An easy way to manage user profiles
 - An API to assist developers in accessing user profiles information
 
 ## How does it work?
-This module assigns a REDCap project the role of representing user profile entities and storing their information as data entry records.
+This module assigns to a REDCap project the role of representing and storing user profile entities as data entry records.
 
 ## Prerequisites
 - [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules)
@@ -33,10 +33,9 @@ You can magage user profiles in two ways.
 Directly on User Profile project - creating new records, making sure to associate a REDCap username for each profile.
 
 ### Option 2
-By accessing each user account. Here is a basic step-by-step use case:
-1. Go to **Control Manager > Browse Users** and click on **View Users**.
-2. Access any user account page. There, you will be able to see a **Create User Profile** button (if the user does not have a profile yet), or an **Edit User Profile** button (if the user has an associated profile already).
-4. Either button will redirect you to the user profile form (the username field will be prefilled for new profiles).
+By accessing user account page (go to **Control Manager > Browse Users** and click on **View Users** to choose the account). 
+
+There, you will be able to see a **Create User Profile** button or an **Edit User Profile** button. Either button will redirect you to the user profile form - for new profiles, the username field will be automatically prefilled.
 
 ## API usage
 User Profile module provides `UserProfile` class. Here is an example of usage:
