@@ -46,7 +46,7 @@ use UserProfile\UserProfile;
 $profile = new UserProfile('test_username');
 $data = $profile->getProfileData();
 
-// Assuming your User Profile project contains a field called 'street_address'.
+// Assuming your User Profile project contains an address field which key is 'street_address'.
 $address = $data['street_address'];
 ```
 
@@ -61,7 +61,8 @@ $profile->getUsername();
 // Gets username field key.
 $profile->getUsernameField();
 
-// Gets user profile project ID.  $profile->getProjectId();
+// Gets user profile project ID.
+$profile->getProjectId();
 ```
 
 There is also a static method to get all available profiles.
