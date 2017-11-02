@@ -41,6 +41,8 @@ There, you will be able to see a **Create User Profile** button or an **Edit Use
 User Profile module provides `UserProfile` class. Here is an example of usage:
 
 ```
+use UserProfile\UserProfile;
+
 $profile = new UserProfile('test_username');
 $data = $profile->getProfileData();
 
@@ -64,6 +66,8 @@ $profile->getUsernameField();
 
 There is also a static method to get all available profiles.
 ```
+use UserProfile\UserProfile;
+
 $profiles = UserProfiles::getProfiles();
 
 // Creating an array of addresses, keyed by username.
