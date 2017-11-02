@@ -27,7 +27,7 @@ Go to **Control Center > Manage External Modules**, click on User Profile's **Co
   - **Username field**: The key of username field you created
 
 ## Managing User Profiles
-You can magage user profiles in two ways.
+You can manage user profiles in two ways.
 
 ### Option 1
 Directly on User Profile project - creating new records, making sure to associate a REDCap username for each profile.
