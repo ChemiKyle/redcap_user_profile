@@ -33,6 +33,9 @@ class UserProfile {
 
         $profiles = array();
         foreach ($data as $username) {
+            // Since the result is given a record-event-value nesting
+            // structure, we need to get rid of the first two array levels in
+            // order to get the username.
             $username = reset($username);
             $username = reset($username);
 

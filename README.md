@@ -4,7 +4,7 @@ REDCap User Profile is an external module that extends user accounts information
 - An API to assist developers in accessing user profiles information
 
 ## How does it work?
-This module assigns to a REDCap project the role of representing and storing user profile entities as data entry records.
+This module uses a REDCap project to manage and store additional user attributes as data entry records.
 
 ## Prerequisites
 - [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules)
@@ -15,8 +15,8 @@ This module assigns to a REDCap project the role of representing and storing use
 
 ## Configuration
 
-### Making sure Table-based authentication is enabled
-Make sure that Table-based authentication is enabled in your REDCap, since it is required to manage user accounts.
+### Making sure authentication is enabled
+If you are working in a test instance, you must turn on some form of authentication as it builds upon account management features. Table-based authentication will work fine.
 
 ### Create an User Profile project
 Create a REDCap project in order to extend user information according to your needs - e.g. address, country of birth, job position, etc. **Make sure to create a field that represents REDCap username** - that's how user accounts and profiles are connected.
@@ -40,7 +40,9 @@ There, you will be able to see a **Create User Profile** button or an **Edit Use
 ## API usage
 User Profile module provides `UserProfile` class. Here is an example of usage:
 
-```
+```php
+<?php
+
 use UserProfile\UserProfile;
 
 $profile = new UserProfile('test_username');
@@ -51,7 +53,9 @@ $address = $data['street_address'];
 ```
 
 Here are other methods that might be useful:
-```
+```php
+<?php
+
 // Gets profile record ID.
 $profile->getProfileId();
 
@@ -66,7 +70,9 @@ $profile->getProjectId();
 ```
 
 There is also a static method to get all available profiles.
-```
+```php
+<?php
+
 use UserProfile\UserProfile;
 
 $profiles = UserProfiles::getProfiles();
@@ -74,7 +80,7 @@ $profiles = UserProfiles::getProfiles();
 // Creating an array of addresses, keyed by username.
 $addresses = array();
 foreach ($profiles as $username => $profile) {
-    $data = $profile->getData();
+    $data = $profile->getProfileData();
     $addresses[$username] = $data['street_address'];
 }
 ```
