@@ -2,6 +2,11 @@ $(document).ready(function() {
     var settings = userProfile.addEditButtons;
     setUserProfileButton();
 
+    // Handles clicks on user links from "Browse Users" page.
+    $(this).ajaxStop(function () {
+        setUserProfileButton();
+    });
+
     function setUserProfileButton() {
         var username = getUrlParam('username');
         if (!username) {
@@ -44,8 +49,4 @@ $(document).ready(function() {
            return results[1] || 0;
         }
     }
-
-    $(this).ajaxStop(function () {
-        setUserProfileButton();
-    });
 });
