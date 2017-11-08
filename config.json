@@ -2,7 +2,10 @@
     "name": "User Profile",
     "namespace": "UserProfile\\ExternalModule",
     "description": "Provides user profiles management - in other words, it gives the administrators the ability to create (and manage) additional user account information such as address, country of birth, job position, etc.",
-    "permissions": [],
+    "permissions": [
+        "hook_every_page_before_render",
+        "hook_every_page_top"
+    ],
     "authors": [
         {
             "name": "Philip Chase",
@@ -30,5 +33,18 @@
             "institution": "CTS-IT - University of Florida"
         }
     ],
-    "system-settings": []
+    "system-settings": [
+        {
+            "key": "project_id",
+            "name": "Project",
+            "required": true,
+            "type": "project-id"
+        },
+        {
+            "key": "username_field",
+            "name": "Username field",
+            "required": true,
+            "type": "text"
+        }
+    ]
 }
