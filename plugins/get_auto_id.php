@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Provides getAutoId() value to outsite the project's scope.
+ * Provides getAutoId() value to callers outside this project's scope.
  */
 
 define('NOAUTH', true);

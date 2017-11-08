@@ -16,7 +16,7 @@ This module uses a REDCap project to manage and store additional user attributes
 ## Configuration
 
 ### Making sure authentication is enabled
-If you are working in a test instance, you must turn on some form of authentication as it builds upon account management features. Table-based authentication will work fine.
+If you are working in a test instance, you must turn on some form of authentication as this module builds upon account management features. Table-based authentication will work fine.
 
 ### Create an User Profile project
 Create a REDCap project in order to extend user information according to your needs - e.g. address, country of birth, job position, etc. **Make sure to create a field that represents REDCap username** - that's how user accounts and profiles are connected.
