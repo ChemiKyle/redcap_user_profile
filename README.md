@@ -19,7 +19,7 @@ This module uses a REDCap project to manage and store additional user attributes
 If you are working in a test instance, you must turn on some form of authentication as this module builds upon account management features. Table-based authentication will work fine.
 
 ### Create an User Profile project
-Create a REDCap project in order to extend user information according to your needs - e.g. address, country of birth, job position, etc. **Make sure to create a field that represents REDCap username** - that's how user accounts and profiles are connected.
+Create a REDCap project in order to extend user information according to your needs - e.g. address, country of birth, job position, etc. **Make sure to create a field that represents REDCap username** - that's how user accounts and profiles are connected.  A sample user profile project is available in [samples folder](samples/UserProfile.xml)
 
 ### Filling the settings form
 Go to **Control Center > Manage External Modules**, click on User Profile's **Configure** button, and fill the form as follows:
