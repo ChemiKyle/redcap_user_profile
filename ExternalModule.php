@@ -99,32 +99,51 @@ class ExternalModule extends AbstractExternalModule {
     }
 
     /**
-     * Gets profile ID for a new entry.
+     * Adapted version of getAutoId() for callers outside this project's scope.
      *
      * @return int
      *   The new profile ID.
+     *
+     * @see getAutoId()
      */
     function getAutoId() {
-        require_once APP_PATH_DOCROOT . 'ProjectGeneral/form_renderer_functions.php';
+        $Proj = new Project($this->projectId);
+        $user_rights = UserRights::getPrivileges($this->projectId, USERID);
 
-        if (defined('PROJECT_ID') && PROJECT_ID == $this->projectId) {
-            return getAutoId();
+        // User is in a DAG, so only pull records from this DAG
+        if (isset($user_rights['group_id']) && $user_rights['group_id'] != "")
+        {
+                $sql = "select distinct(substring(a.record,".(strlen($user_rights['group_id'])+2).")) as record
+                                from redcap_data a left join redcap_data b
+                                on a.project_id = b.project_id and a.record = b.record and b.field_name = '__GROUPID__'
+                                where a.record like '{$user_rights['group_id']}-%' and a.field_name = '{$Proj->table_pk}'
+                                and a.project_id = " . $this->projectId;
+                $recs = db_query($sql);
         }
-
-        // Since this function is called from the Control Center, this
-        // constant won't hurt.
-        define('PROJECT_ID', $this->projectId);
-
-        // Fake project scope in order to call getAutoId().
-        $GLOBALS['Proj'] = new Project($this->projectId);
-        $GLOBALS['user_rights'] = UserRights::getPrivileges($this->projectId, USERID);
-
-        $auto_id = getAutoId();
-
-        // Cleaning project scope.
-        unset($GLOBALS['Proj'], $GLOBALS['user_rights']);
-
-        return $auto_id;
+        // User is not in a DAG
+        else {
+                $sql = "select distinct record from redcap_data where project_id = " . $this->projectId . " and field_name = '{$Proj->table_pk}'";
+                $recs = db_query($sql);
+        }
+        //Use query from above and find the largest record id and add 1
+        $holder = 0;
+        while ($row = db_fetch_assoc($recs))
+        {
+                if (is_numeric($row['record']) && is_int($row['record'] + 0) && $row['record'] > $holder)
+                {
+                        $holder = $row['record'];
+                }
+        }
+        db_free_result($recs);
+        // Increment the highest value by 1 to get the new value
+        $holder++;
+        //If user is in a DAG append DAGid+dash to beginning of record
+        if (isset($user_rights['group_id']) && $user_rights['group_id'] != "")
+        {
+                $holder = $user_rights['group_id'] . "-" . $holder;
+        }
+        // Return new auto id value
+        return $holder;
     }
 
     /**
