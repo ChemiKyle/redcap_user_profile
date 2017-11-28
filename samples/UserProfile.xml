@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="User Profile" AsOfDateTime="2017-11-28T08:47:35" CreationDateTime="2017-11-28T08:47:35" SourceSystem="REDCap" SourceSystemVersion="7.6.9">
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="User Profile" AsOfDateTime="2017-11-28T15:42:56" CreationDateTime="2017-11-28T15:42:56" SourceSystem="REDCap" SourceSystemVersion="7.6.9">
 <Study OID="Project.UserProfile">
 <GlobalVariables>
 	<StudyName>User Profile</StudyName>
 	<StudyDescription>This file contains the metadata, events, and data for REDCap project "User Profile".</StudyDescription>
 	<ProtocolName>User Profile</ProtocolName>
 	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
-	<redcap:CustomRecordLabel>[send_rx_user_first_name] [send_rx_user_last_name]</redcap:CustomRecordLabel>
+	<redcap:CustomRecordLabel>[user_id]</redcap:CustomRecordLabel>
 	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
 	<redcap:SchedulingEnabled>0</redcap:SchedulingEnabled>
 	<redcap:Purpose>0</redcap:Purpose>
 	<redcap:PurposeOther></redcap:PurposeOther>
 	<redcap:ProjectNotes></redcap:ProjectNotes>
 </GlobalVariables>
-<MetaDataVersion OID="Metadata.UserProfile_2017-11-28_0847" Name="User Profile" redcap:RecordIdField="profile_id">
+<MetaDataVersion OID="Metadata.UserProfile_2017-11-28_1542" Name="User Profile" redcap:RecordIdField="profile_id">
 	<FormDef OID="Form.profile_info" Name="Profile Info" Repeating="No" redcap:FormName="profile_info">
 		<ItemGroupRef ItemGroupOID="profile_info.profile_id" Mandatory="No"/>
 		<ItemGroupRef ItemGroupOID="profile_info.profile_info_complete" Mandatory="No"/>
