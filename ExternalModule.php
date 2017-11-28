@@ -12,6 +12,7 @@ use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use UserProfile\UserProfile;
 use Project;
+use UserRights;
 
 /**
  * ExternalModule class for User Profile module.
@@ -104,23 +105,22 @@ class ExternalModule extends AbstractExternalModule {
      *   The new profile ID.
      */
     function getAutoId() {
+        require_once APP_PATH_DOCROOT . 'ProjectGeneral/form_renderer_functions.php';
+
         if (defined('PROJECT_ID') && PROJECT_ID == $this->projectId) {
-            require_once APP_PATH_DOCROOT . 'ProjectGeneral/form_renderer_functions.php';
             return getAutoId();
         }
 
-        // Since we are not in the project's scope, let's request the ID from an
-        // external source.
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $this->getUrl('plugins/get_auto_id.php?pid=' . $this->projectId),
-        ));
+        // Fake project scope in order to call getAutoId().
+        $GLOBALS['Proj'] = new Project($this->projectId);
+        $GLOBALS['user_rights'] = UserRights::getPrivileges($this->projectId, USERID);
 
-        $result = curl_exec($curl);
-        $result = json_decode($result);
+        $auto_id = getAutoId();
 
-        return empty($result->success) ? false : $result->result;
+        // Cleaning project scope.
+        unset($GLOBALS['Proj'], $GLOBALS['user_rights']);
+
+        return $auto_id;
     }
 
     /**
