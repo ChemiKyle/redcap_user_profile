@@ -111,6 +111,10 @@ class ExternalModule extends AbstractExternalModule {
             return getAutoId();
         }
 
+        // Since this function is called from the Control Center, this
+        // constant won't hurt.
+        define('PROJECT_ID', $this->projectId);
+
         // Fake project scope in order to call getAutoId().
         $GLOBALS['Proj'] = new Project($this->projectId);
         $GLOBALS['user_rights'] = UserRights::getPrivileges($this->projectId, USERID);
