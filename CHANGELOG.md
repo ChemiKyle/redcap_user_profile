@@ -9,6 +9,14 @@ REDCap. Until such time, verison numbers should be a two part form N.M, where
 N increases for feature additions or breaking changes. M increases for bug
 fixes.
 
+## [1.1] - 2017-11-29
+### Added
+- Add sample User Profile project (Philip Chase)
+
+### Changed
+- Giving up esoteric approaches in favor of creating a dedicated getAutoId() method. (Tiago Bember Simeao)
+- Updated pre-reqs and installation instructions in README (Philip Chase)
+
 
 ## [1.0] - 2017-11-08
 ### Added
