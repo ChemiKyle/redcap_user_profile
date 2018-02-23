@@ -12,7 +12,7 @@ This module uses a REDCap project to manage and store additional user attributes
 
 ## Installation
 - Clone this repo into to `<redcap-root>/modules/redcap_user_profile_v<version_number>`.
-- Go to **Control Center > External Modules** and enable User Profile - it will be enabled for all modules by default.
+- Go to **Control Center > External Modules** and enable User Profile - it will be enabled for all projects by default.
 
 ## Configuration
 
