@@ -38,12 +38,10 @@ class ExternalModule extends AbstractExternalModule {
         // Initializing User Profile JS settings variable.
         echo '<script>var userProfile = {};</script>';
 
-        if (
-            strpos(PAGE, 'ExternalModules/manager/control_center.php') !== false ||
-            strpos(PAGE, 'external_modules/manager/control_center.php') !== false
-        ) {
+        if (strpos(PAGE, 'ExternalModules/manager/control_center.php') !== false) {
             $this->includeJs('js/config.js');
             $this->includeCss('css/config.css');
+            $this->setJsSetting('modulePrefix', $this->PREFIX);
 
             return;
         }
