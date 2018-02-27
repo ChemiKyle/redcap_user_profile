@@ -8,23 +8,22 @@ REDCap User Profile is an external module that extends user accounts information
 This module uses a REDCap project to manage and store additional user attributes as data entry records.
 
 ## Prerequisites
-- REDCap >= 8.0.0 (for versions < 8.0.0, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
+- REDCap >= 8.0.3
 
 ## Installation
-- Clone this repo into to `<redcap-root>/modules/redcap_user_profile_v<module-version-number>`.
-- Go to **Control Center > Manage External Modules** and enable User Profile for all modules.
+- Clone this repo into to `<redcap-root>/modules/redcap_user_profile_v<version_number>`.
+- Go to **Control Center > External Modules** and enable User Profile - it will be enabled for all projects by default.
 
 ## Configuration
 
 ### Making sure authentication is enabled
 If you are working in a test instance, you must turn on some form of authentication as this module builds upon account management features. Table-based authentication will work fine.
 
-### Create an User Profile project
+### Create a User Profile project
 Create a REDCap project in order to extend user information according to your needs - e.g. address, country of birth, job position, etc. **Make sure to create a field that represents REDCap username** - that's how user accounts and profiles are connected.  A sample user profile project is available in [samples folder](samples/UserProfile.xml)
 
 ### Filling the settings form
-Go to **Control Center > Manage External Modules**, click on User Profile's **Configure** button, and fill the form as follows:
-
+Go to **Control Center > External Modules**, click on User Profile's **Configure** button, and fill the form as follows:
   - **Project**: The project you created
   - **Username field**: The key of username field you created
 
