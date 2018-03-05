@@ -9,6 +9,14 @@ REDCap. Until such time, verison numbers should be a two part form N.M, where
 N increases for feature additions or breaking changes. M increases for bug
 fixes.
 
+## [1.1.1] - 2018-03-05
+### Changed
+- Updating README with modern language. (Tiago Bember Simeao)
+- Set minimum REDCap versipon to 8.0.3 (Tiago Bember Simeao)
+- Enable enable-every-page-hooks-on-system-pages in config.json (Tiago Bember Simeao)
+- Fix regression in config.js. (Tiago Bember Simeao)
+
+
 ## [1.1] - 2017-11-29
 ### Added
 - Add sample User Profile project (Philip Chase)
