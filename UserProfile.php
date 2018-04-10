@@ -8,6 +8,7 @@ namespace UserProfile;
 
 use ExternalModules\ExternalModules;
 use Project;
+use Records;
 use REDCap;
 
 /**
@@ -46,16 +47,66 @@ class UserProfile {
     }
 
     /**
+     * Creates a new user profile.
+     *
+     * @param mixed $data
+     *   The user profile data array or the username.
+     *
+     * @return bool
+     *   TRUE if success, FALSE otherwise.
+     */
+    public static function createProfile($data) {
+        $module = ExternalModules::getModuleInstance('redcap_user_profile');
+        $username_field = $module->getSystemSetting('username_field');
+
+        if (is_string($data)) {
+            $data = array($username_field => $data);
+        }
+        elseif (!isset($data[$username_field])) {
+            return false;
+        }
+
+        $username = $data[$username_field];
+        $project_id = $module->getSystemSetting('project_id');
+
+        if (REDCap::getData($project_id, 'array', null, $username_field, null, null, false, false, false, '[' . $username_field . '] = "' . $username . '"')) {
+            return false;
+        }
+
+        // Checking whether input fields are valid.
+        $project = new Project($project_id);
+        foreach (array_keys($data) as $field_name) {
+            if (!isset($project->metadata[$field_name])) {
+                unset($data[$field_name]);
+            }
+        }
+
+        $data = array(
+            $module->getAutoId() => array(
+                $project->firstEventId => $data + array(
+                    $project->firstForm . '_complete' => 2,
+                ),
+            ),
+        );
+
+        $result = Records::saveData($project_id, 'array', $data);
+        return is_array($result) && empty($result['errors']) && !empty($result['ids']);
+    }
+
+    /**
      * Constructor.
      */
-    public function __construct($username) {
+    public function __construct($username, $set_profile_data = true) {
         $module_name = 'redcap_user_profile';
 
         $this->username = $username;
         $this->usernameField = ExternalModules::getSystemSetting($module_name, 'username_field');
         $this->projectId = ExternalModules::getSystemSetting($module_name, 'project_id');
         $this->setProfileId();
-        $this->setProfileData();
+
+        if ($set_profile_data) {
+            $this->setProfileData();
+        }
     }
 
     /**
@@ -115,9 +166,9 @@ class UserProfile {
         $sql = '
             SELECT record FROM redcap_data
             WHERE
-                field_name = "' . db_escape($this->usernameField) . '" AND
-                project_id = ' . db_escape($this->projectId) . ' AND
-                value = "' . db_escape($this->username) . '"
+                field_name = "' . db_real_escape_string($this->usernameField) . '" AND
+                project_id = "' . intval($this->projectId) . '" AND
+                value = "' . db_real_escape_string($this->username) . '"
             LIMIT 1';
 
         $q = db_query($sql);
