@@ -9,6 +9,14 @@ REDCap. Until such time, verison numbers should be a two part form N.M, where
 N increases for feature additions or breaking changes. M increases for bug
 fixes.
 
+## [1.2.0] - 2018-04-20
+### Added
+- Adding createProfile() static method. (Tiago Bember Simeao)
+
+### Changed
+- Forcing module to be enabled for all projects on the backend. (Tiago Bember Simeao)
+
+
 ## [1.1.1] - 2018-03-05
 ### Changed
 - Updating README with modern language. (Tiago Bember Simeao)
