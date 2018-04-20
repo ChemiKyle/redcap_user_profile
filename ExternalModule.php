@@ -13,6 +13,7 @@ use ExternalModules\ExternalModules;
 use UserProfile\UserProfile;
 use Project;
 use UserRights;
+use RCView;
 
 /**
  * ExternalModule class for User Profile module.
@@ -39,10 +40,20 @@ class ExternalModule extends AbstractExternalModule {
         echo '<script>var userProfile = {};</script>';
 
         if (strpos(PAGE, 'ExternalModules/manager/control_center.php') !== false) {
+            // Making sure the module is enabled for all projects.
+            // TODO: move it to redcap_module_system_enable as soon as this hook
+            // is released on REDCap.
+            $this->setSystemSetting(ExternalModules::KEY_ENABLED, true);
+
+            // Adding script and style.
             $this->includeJs('js/config.js');
             $this->includeCss('css/config.css');
             $this->setJsSetting('modulePrefix', $this->PREFIX);
 
+            return;
+        }
+
+        if (!$this->projectId) {
             return;
         }
 
@@ -85,15 +96,16 @@ class ExternalModule extends AbstractExternalModule {
         );
 
         foreach ($buttons as $key => $btn_info) {
-            $settings[$key] = '
-                <button type="button" style="padding:1px 5px 2px 5px;" id="user-profile-btn">
-                    <img src="' . APP_PATH_IMAGES . $btn_info['icon'] . '.png" style="vertical-align:middle;">
-                    <span style="vertical-align:middle;">' . $btn_info['label'] . '</span>
-                </button>';
+            $button = RCView::img(array('src' => APP_PATH_IMAGES . $btn_info['icon'] . '.png'));
+            $button .= RCView::span(array(), $btn_info['label']);
+            $button = RCView::button(array('id' => 'user-profile-btn', 'type' => 'button'), $button);
+
+            $settings[$key] = $button;
         }
 
         $this->setJsSetting('addEditButtons', $settings);
         $this->includeJs('js/add_edit_buttons.js');
+        $this->includeCss('css/add_edit_buttons.css');
     }
 
     /**
