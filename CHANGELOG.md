@@ -2,12 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project does not yet adhere to [Semantic
-Versioning](http://semver.org/spec/v2.0.0.html) due to constraint in the
-REDCap. Until such time, verison numbers should be a two part form N.M, where
-N increases for feature additions or breaking changes. M increases for bug
-fixes.
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+This project adheres to [Semantic Versioning](http://semver.org/).
+
+## [1.3.0] - 2018-12-17
+### Added
+- Logging User Profile creation events. (Tiago Bember Simeao)
+
 
 ## [1.2.0] - 2018-04-20
 ### Added

@@ -63,13 +63,15 @@ class UserProfile {
             $data = array($username_field => $data);
         }
         elseif (!isset($data[$username_field])) {
+            REDCap::logEvent('User profile creation failed', 'No username provided.');
             return false;
         }
 
-        $username = $data[$username_field];
+        $username = db_escape($data[$username_field]);
         $project_id = $module->getSystemSetting('project_id');
 
         if (REDCap::getData($project_id, 'array', null, $username_field, null, null, false, false, false, '[' . $username_field . '] = "' . $username . '"')) {
+            REDCap::logEvent('User profile creation failed', 'User profile "' . $username . '" already exists.');
             return false;
         }
 
@@ -90,7 +92,15 @@ class UserProfile {
         );
 
         $result = Records::saveData($project_id, 'array', $data);
-        return is_array($result) && empty($result['errors']) && !empty($result['ids']);
+
+        if (!is_array($result) || !empty($result['errors']) || empty($result['ids'])) {
+            $msg = !is_array($result) || empty($result['errors']) ? 'Data could not be saved.' : json_encode($result['errors']);
+            REDCap::logEvent('User profile creation failed', $msg);
+            return false;
+        }
+
+        REDCap::logEvent('User profile created', 'Username: "' . $username . '"');
+        return true;
     }
 
     /**
